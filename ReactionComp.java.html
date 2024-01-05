@@ -1,0 +1,155 @@
+<html>
+<head>
+<title>ReactionComp.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ReactionComp.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">processing</span><span class="s2">.</span><span class="s1">core</span><span class="s2">.</span><span class="s1">PApplet</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Random</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">processing</span><span class="s2">.</span><span class="s1">core</span><span class="s2">.</span><span class="s1">PFont</span><span class="s2">;</span>
+<span class="s3">//core.jar from processing-4.3 required</span>
+
+<span class="s0">public class </span><span class="s1">ReactionComp </span><span class="s0">extends </span><span class="s1">PApplet </span><span class="s2">{</span>
+    <span class="s3">//declerations</span>
+    <span class="s0">public int </span><span class="s1">startTime</span><span class="s2">;</span>
+    <span class="s0">public int </span><span class="s1">timer</span><span class="s2">;</span>
+    <span class="s0">int </span><span class="s1">number</span><span class="s2">;</span>
+    <span class="s0">int </span><span class="s1">stoptime</span><span class="s2">;</span>
+    <span class="s0">int </span><span class="s1">score</span><span class="s2">;</span>
+    <span class="s1">PFont font</span><span class="s2">;</span>
+    <span class="s0">boolean </span><span class="s1">fail </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+    <span class="s0">boolean </span><span class="s1">starts </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+
+    <span class="s1">Random randomnumbers1 </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Random</span><span class="s2">();</span>
+
+    <span class="s3">//White screen then array</span>
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) {</span>
+        <span class="s1">PApplet</span><span class="s2">.</span><span class="s1">main</span><span class="s2">(</span><span class="s4">&quot;ReactionComp&quot;</span><span class="s2">);</span>
+        <span class="s1">String</span><span class="s2">[] </span><span class="s1">fontList </span><span class="s2">= </span><span class="s1">PFont</span><span class="s2">.</span><span class="s1">list</span><span class="s2">();</span>
+
+    <span class="s2">}</span>
+    <span class="s3">// canvas size</span>
+    <span class="s0">public void </span><span class="s1">settings</span><span class="s2">() {</span>
+
+        <span class="s1">size</span><span class="s2">(</span><span class="s5">800</span><span class="s2">, </span><span class="s5">600</span><span class="s2">);</span>
+
+    <span class="s2">}</span>
+    <span class="s3">//starts a timer..</span>
+    <span class="s0">public void </span><span class="s1">startTimer</span><span class="s2">() {</span>
+        <span class="s1">startTime </span><span class="s2">= </span><span class="s1">millis</span><span class="s2">();</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">startTime</span><span class="s2">);</span>
+
+    <span class="s2">}</span>
+
+    <span class="s0">public void </span><span class="s1">setup</span><span class="s2">() {</span>
+<span class="s3">//setup for the draw</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">();</span>
+        <span class="s1">background</span><span class="s2">(</span><span class="s5">255</span><span class="s2">, </span><span class="s5">255</span><span class="s2">, </span><span class="s5">255</span><span class="s2">);</span>
+        <span class="s1">textFont</span><span class="s2">(</span><span class="s1">createFont</span><span class="s2">(</span><span class="s4">&quot;Arial&quot;</span><span class="s2">, </span><span class="s5">17</span><span class="s2">, </span><span class="s0">true</span><span class="s2">));</span>
+
+
+
+        <span class="s3">// number will be set to a number from 0 to 6</span>
+
+        <span class="s3">//System.out.println(number);</span>
+
+
+    <span class="s2">}</span>
+    <span class="s3">//draws on screen</span>
+    <span class="s0">public void </span><span class="s1">draw</span><span class="s2">() {</span>
+<span class="s3">//text for screen with coordinates</span>
+        <span class="s1">background</span><span class="s2">(</span><span class="s5">255</span><span class="s2">, </span><span class="s5">255</span><span class="s2">, </span><span class="s5">255</span><span class="s2">);</span>
+        <span class="s1">fill</span><span class="s2">(</span><span class="s5">5</span><span class="s2">, </span><span class="s5">5</span><span class="s2">, </span><span class="s5">5</span><span class="s2">);</span>
+        <span class="s1">text</span><span class="s2">(</span><span class="s4">&quot;When the green circle pops up, click the mouse anywhere aside from the buttons.&quot;</span><span class="s2">, </span><span class="s5">5</span><span class="s2">, </span><span class="s5">50</span><span class="s2">);</span>
+        <span class="s1">text</span><span class="s2">(</span><span class="s4">&quot;The circle will appear randomly within 10 seconds (minimum of 2), and will appear in the red box.&quot;</span><span class="s2">, </span><span class="s5">5</span><span class="s2">, </span><span class="s5">25</span><span class="s2">);</span>
+        <span class="s1">text</span><span class="s2">(</span><span class="s4">&quot;Good Luck!, &quot;</span><span class="s2">, </span><span class="s5">5</span><span class="s2">, </span><span class="s5">75</span><span class="s2">);</span>
+
+        <span class="s1">fill</span><span class="s2">(</span><span class="s5">255</span><span class="s2">, </span><span class="s5">0</span><span class="s2">, </span><span class="s5">0</span><span class="s2">);</span>
+        <span class="s1">rect</span><span class="s2">(</span><span class="s5">440</span><span class="s2">, </span><span class="s5">120</span><span class="s2">, </span><span class="s5">200</span><span class="s2">, </span><span class="s5">40</span><span class="s2">);</span>
+        <span class="s1">rect</span><span class="s2">(</span><span class="s5">24</span><span class="s2">, </span><span class="s5">150</span><span class="s2">, </span><span class="s5">250</span><span class="s2">, </span><span class="s5">250</span><span class="s2">);</span>
+        <span class="s1">fill</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s5">220</span><span class="s2">, </span><span class="s5">30</span><span class="s2">);</span>
+        <span class="s1">rect</span><span class="s2">(</span><span class="s5">440</span><span class="s2">, </span><span class="s5">200</span><span class="s2">, </span><span class="s5">200</span><span class="s2">, </span><span class="s5">40</span><span class="s2">);</span>
+        <span class="s3">//  System.out.println(timer);</span>
+<span class="s3">//calculates time</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">starts</span><span class="s2">) {</span>
+            <span class="s1">timer </span><span class="s2">= </span><span class="s1">millis</span><span class="s2">() - </span><span class="s1">startTime</span><span class="s2">;</span>
+            <span class="s1">text</span><span class="s2">(</span><span class="s4">&quot;started&quot;</span><span class="s2">, </span><span class="s5">485</span><span class="s2">, </span><span class="s5">275</span><span class="s2">);</span>
+            <span class="s3">//  System.out.println(&quot;timer = millis () - starttime,,,, at &quot; + starts);</span>
+        <span class="s2">}</span>
+        <span class="s1">fill</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s5">0</span><span class="s2">, </span><span class="s5">0</span><span class="s2">);</span>
+        <span class="s1">text</span><span class="s2">(</span><span class="s4">&quot;Reset&quot;</span><span class="s2">, </span><span class="s5">465</span><span class="s2">, </span><span class="s5">145</span><span class="s2">);</span>
+        <span class="s1">text</span><span class="s2">(</span><span class="s4">&quot;Start&quot;</span><span class="s2">, </span><span class="s5">465</span><span class="s2">, </span><span class="s5">225</span><span class="s2">);</span>
+
+        <span class="s3">//System.out.println(timer);</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">fail</span><span class="s2">) {</span>
+            <span class="s1">text</span><span class="s2">(</span><span class="s4">&quot;    Score invalid, you clicked too soon :( &quot;</span><span class="s2">, </span><span class="s5">350</span><span class="s2">, </span><span class="s5">350</span><span class="s2">);</span>
+        <span class="s2">}</span>
+<span class="s3">//shapes</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">timer </span><span class="s2">&gt; </span><span class="s1">number</span><span class="s2">) {</span>
+            <span class="s3">//System.out.println(&quot;done&quot;);</span>
+            <span class="s1">fill</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s5">255</span><span class="s2">, </span><span class="s5">0</span><span class="s2">);</span>
+            <span class="s1">ellipse</span><span class="s2">(</span><span class="s5">244</span><span class="s2">, </span><span class="s5">250</span><span class="s2">, </span><span class="s5">30</span><span class="s2">, </span><span class="s5">30</span><span class="s2">);</span>
+            <span class="s1">ellipse</span><span class="s2">(</span><span class="s5">147</span><span class="s2">, </span><span class="s5">273</span><span class="s2">, </span><span class="s5">250</span><span class="s2">, </span><span class="s5">250</span><span class="s2">);</span>
+            <span class="s1">fill</span><span class="s2">(</span><span class="s5">255</span><span class="s2">, </span><span class="s5">255</span><span class="s2">, </span><span class="s5">255</span><span class="s2">);</span>
+            <span class="s1">rect</span><span class="s2">(</span><span class="s5">150</span><span class="s2">, </span><span class="s5">424</span><span class="s2">, </span><span class="s5">195</span><span class="s2">, </span><span class="s5">24</span><span class="s2">);</span>
+            <span class="s1">fill</span><span class="s2">(</span><span class="s5">250</span><span class="s2">, </span><span class="s5">5</span><span class="s2">, </span><span class="s5">5</span><span class="s2">);</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">score </span><span class="s2">&lt; </span><span class="s5">315 </span><span class="s2">&amp;&amp; </span><span class="s1">score </span><span class="s2">&gt; </span><span class="s5">0</span><span class="s2">) {</span>
+                <span class="s1">fill</span><span class="s2">(</span><span class="s5">0</span><span class="s2">, </span><span class="s5">250</span><span class="s2">, </span><span class="s5">10</span><span class="s2">);</span>
+            <span class="s2">}</span>
+
+        <span class="s2">}</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">score </span><span class="s2">&gt; </span><span class="s5">0</span><span class="s2">){</span>
+            <span class="s1">text</span><span class="s2">(</span><span class="s4">&quot;Your time is  &quot; </span><span class="s2">+ </span><span class="s1">score </span><span class="s2">+ </span><span class="s4">&quot; ms!&quot;</span><span class="s2">, </span><span class="s5">155</span><span class="s2">, </span><span class="s5">440</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s1">fill</span><span class="s2">(</span><span class="s5">250</span><span class="s2">,</span><span class="s5">5</span><span class="s2">,</span><span class="s5">5</span><span class="s2">);</span>
+        <span class="s1">text</span><span class="s2">(</span><span class="s4">&quot;Created by: Lucas Zahlan&quot;</span><span class="s2">, </span><span class="s5">600</span><span class="s2">, </span><span class="s5">490</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+<span class="s3">//mouseclick statements</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">mousePressed</span><span class="s2">() {</span>
+        <span class="s1">stoptime </span><span class="s2">= </span><span class="s1">millis</span><span class="s2">();</span>
+        <span class="s1">score </span><span class="s2">= </span><span class="s1">stoptime </span><span class="s2">- </span><span class="s1">number </span><span class="s2">- </span><span class="s1">startTime</span><span class="s2">;</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;Your time is &quot; </span><span class="s2">+ </span><span class="s1">score</span><span class="s2">);</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">score </span><span class="s2">&lt; </span><span class="s5">0 </span><span class="s2">&amp;&amp; </span><span class="s1">starts</span><span class="s2">) {</span>
+            <span class="s1">fail </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;You clicked too fast, score invalid.&quot;</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s5">440 </span><span class="s2">&lt; </span><span class="s1">mouseX </span><span class="s2">&amp;&amp; </span><span class="s1">mouseX</span><span class="s2">&lt; </span><span class="s5">640 </span><span class="s2">&amp;&amp; </span><span class="s5">120 </span><span class="s2">&lt;</span><span class="s1">mouseY </span><span class="s2">&amp;&amp; </span><span class="s1">mouseY</span><span class="s2">&lt; </span><span class="s5">160</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;reset button&quot;</span><span class="s2">);</span>
+            <span class="s1">timer </span><span class="s2">= </span><span class="s5">0</span><span class="s2">;</span>
+            <span class="s1">starts </span><span class="s2">= </span><span class="s0">false</span><span class="s2">;</span>
+            <span class="s1">number </span><span class="s2">= </span><span class="s5">2000 </span><span class="s2">+ </span><span class="s1">randomnumbers1</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">(</span><span class="s5">8000</span><span class="s2">);</span>
+
+        <span class="s2">}</span>
+
+        <span class="s3">//picks a new number to restart</span>
+        <span class="s0">if </span><span class="s2">(</span><span class="s5">440</span><span class="s2">&lt;</span><span class="s1">mouseX </span><span class="s2">&amp;&amp; </span><span class="s1">mouseX</span><span class="s2">&lt;</span><span class="s5">640 </span><span class="s2">&amp;&amp; </span><span class="s5">200</span><span class="s2">&lt;</span><span class="s1">mouseY </span><span class="s2">&amp;&amp; </span><span class="s1">mouseY</span><span class="s2">&lt;</span><span class="s5">240</span><span class="s2">) {</span>
+            <span class="s1">starts </span><span class="s2">= </span><span class="s0">true</span><span class="s2">;</span>
+            <span class="s1">startTimer</span><span class="s2">();</span>
+            <span class="s1">number </span><span class="s2">= </span><span class="s5">2000 </span><span class="s2">+ </span><span class="s1">randomnumbers1</span><span class="s2">.</span><span class="s1">nextInt</span><span class="s2">(</span><span class="s5">9000</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s4">&quot;start&quot;</span><span class="s2">);</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">starts </span><span class="s2">== </span><span class="s0">true</span><span class="s2">){ </span><span class="s1">fail </span><span class="s2">= </span><span class="s0">false</span><span class="s2">; }</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+
+</pre>
+</body>
+</html>
